@@ -1,18 +1,22 @@
-﻿using Caesar.Settings;
-using MediatR;
-using Microsoft.Extensions.Options;
-using Stripe;
-using Caesar.Application.Models;
-
-namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
+﻿namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
 {
+    using Caesar.Settings;
+    using MediatR;
+    using Microsoft.Extensions.Options;
+    using Stripe;
+    using Caesar.Application.Models;
+    using AutoMapper;
+    using System.Collections.Generic;
+
     public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, IList<Item>>
     {
         private readonly StripeSettings stripeSettings;
+        private IMapper mapper;
 
-        public GetProductsListQueryHandler(IOptions<StripeSettings> stripeSettings)
+        public GetProductsListQueryHandler(IOptions<StripeSettings> stripeSettings, IMapper mapper)
         {
             this.stripeSettings = stripeSettings.Value;
+            this.mapper = mapper;
         }
 
         public async Task<IList<Item>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
@@ -21,16 +25,7 @@ namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
             var service = new ProductService();
             StripeList<Product> stripeProducts = service.List();
             var products = new List<Item>();
-            foreach(var stripeProduct in stripeProducts)
-            {
-                products.Add(new Item
-                {
-                    Id = stripeProduct.Id,
-                    Name = stripeProduct.Name,
-                    Description = stripeProduct.Description,
-                    Active = stripeProduct.Active
-                }) ;
-            }
+            //var products = mapper.Map<List<Item>>(stripeProducts.Data);
             return products;
         }
     }

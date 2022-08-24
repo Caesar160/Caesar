@@ -1,6 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using Caesar.Application;
+﻿using Caesar.Application;
+using Caesar.Application.Mappings;
 using Caesar.Presentation.API.Extensions;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,8 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddApplication();
 builder.Services.ConfigureApplicationSettings(builder.Configuration);
+builder.Services.AddApplication();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddFluentValidationAutoValidation();
 
 var app = builder.Build();
 

@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace Caesar.Application.Aggregates.Products.Commands.BuyProduct
 {
-    public class BuyProductCommand : IRequest<Unit>
+    public class CreateInvoiceCommand : IRequest<Unit>
     {
         [JsonProperty("id")]
         public int Id
