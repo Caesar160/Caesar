@@ -17,14 +17,9 @@ namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
 
         public async Task<IList<Item>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            StripeConfiguration.ApiKey = stripeSettings.PublishableKey;
-            var options = new ProductListOptions
-            {
-                Limit = 3,
-            };
+            StripeConfiguration.ApiKey = stripeSettings.SecretKey;
             var service = new ProductService();
-            StripeList<Product> stripeProducts = service.List(
-              options);
+            StripeList<Product> stripeProducts = service.List();
             var products = new List<Item>();
             foreach(var stripeProduct in stripeProducts)
             {

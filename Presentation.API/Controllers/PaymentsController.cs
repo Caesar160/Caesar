@@ -18,10 +18,10 @@ namespace Caesar.Presentation.API.Controllers
 
         [HttpGet("/list")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetProductsListAsync([FromQuery] GetProductsListQuery command)
+        public async Task<IActionResult> GetProductsListAsync()
         {
-            await this.Mediator.Send(command);
-            return Ok();
+            var result = await this.Mediator.Send(new GetProductsListQuery());
+            return Ok(result);
         }
     }
 }
