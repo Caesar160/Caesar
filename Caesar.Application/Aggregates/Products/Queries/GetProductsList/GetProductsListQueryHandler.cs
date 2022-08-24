@@ -24,8 +24,7 @@
             StripeConfiguration.ApiKey = stripeSettings.SecretKey;
             var service = new ProductService();
             StripeList<Product> stripeProducts = service.List();
-            var products = new List<Item>();
-            //var products = mapper.Map<List<Item>>(stripeProducts.Data);
+            var products = mapper.Map<List<Item>>(stripeProducts.Data);
             return products;
         }
     }
