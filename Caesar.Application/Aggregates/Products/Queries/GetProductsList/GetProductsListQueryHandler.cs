@@ -11,12 +11,12 @@
     public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, IList<Item>>
     {
         private readonly StripeSettings stripeSettings;
-        private IMapper mapper;
+        //private IMapper mapper;
 
         public GetProductsListQueryHandler(IOptions<StripeSettings> stripeSettings, IMapper mapper)
         {
             this.stripeSettings = stripeSettings.Value;
-            this.mapper = mapper;
+            //this.mapper = mapper;
         }
 
         public async Task<IList<Item>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
@@ -24,7 +24,18 @@
             StripeConfiguration.ApiKey = stripeSettings.SecretKey;
             var service = new ProductService();
             StripeList<Product> stripeProducts = service.List();
-            var products = mapper.Map<List<Item>>(stripeProducts.Data);
+            //var products = mapper.Map<List<Item>>(stripeProducts.Data);
+            var products = new List<Item>();
+            foreach (var stripeProduct in stripeProducts)
+            {
+                products.Add(new Item
+                {
+                    Id = stripeProduct.Id,
+                    Name = stripeProduct.Name,
+                    Description = stripeProduct.Description,
+                    Active = stripeProduct.Active
+                });
+            }
             return products;
         }
     }

@@ -8,12 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplication();
-builder.Services.AddSwaggerGen();
 builder.Services.ConfigureApplicationSettings(builder.Configuration);
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
