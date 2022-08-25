@@ -1,9 +1,10 @@
-﻿using MediatR;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Caesar.Application.Aggregates.Products.Commands.BuyProduct
+﻿namespace Caesar.Application.Aggregates.Products.Commands.CreateInvoice
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using BuyProduct;
+    using MediatR;
+
     public class CreateInvoiceCommandHandler : IRequestHandler<CreateInvoiceCommand, Unit>
     {
 

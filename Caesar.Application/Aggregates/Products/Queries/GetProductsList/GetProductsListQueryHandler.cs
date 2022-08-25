@@ -1,42 +1,22 @@
 ﻿namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
 {
-    using Caesar.Settings;
+    using Interfaces;
     using MediatR;
-    using Microsoft.Extensions.Options;
     using Stripe;
-    using Caesar.Application.Models;
-    using AutoMapper;
-    using System.Collections.Generic;
 
-    public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, IList<Item>>
+    public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<Product>>
     {
-        private readonly StripeSettings stripeSettings;
-        //private IMapper mapper;
+        private readonly IStripeService _stripeService;
 
-        public GetProductsListQueryHandler(IOptions<StripeSettings> stripeSettings, IMapper mapper)
+        public GetProductsListQueryHandler(IStripeService stripeService)
         {
-            this.stripeSettings = stripeSettings.Value;
-            //this.mapper = mapper;
+            _stripeService = stripeService;
         }
 
-        public async Task<IList<Item>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
+        public async Task<List<Product>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
         {
-            StripeConfiguration.ApiKey = stripeSettings.SecretKey;
-            var service = new ProductService();
-            StripeList<Product> stripeProducts = service.List();
-            //var products = mapper.Map<List<Item>>(stripeProducts.Data);
-            var products = new List<Item>();
-            foreach (var stripeProduct in stripeProducts)
-            {
-                products.Add(new Item
-                {
-                    Id = stripeProduct.Id,
-                    Name = stripeProduct.Name,
-                    Description = stripeProduct.Description,
-                    Active = stripeProduct.Active
-                });
-            }
-            return products;
+            var products = _stripeService.GetProductsList();
+            return await products;
         }
     }
 }

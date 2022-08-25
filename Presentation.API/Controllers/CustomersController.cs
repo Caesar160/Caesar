@@ -1,7 +1,6 @@
 ﻿namespace Caesar.Presentation.API.Controllers
 {
-    using Caesar.Application.Aggregates.Customers.Commands.SignUp;
-    using Microsoft.AspNetCore.Http;
+    using Application.Aggregates.Customers.Commands.SignUp;
     using Microsoft.AspNetCore.Mvc;
 
     [Route("api/[controller]")]
@@ -10,7 +9,7 @@
     {
         [HttpPost("/signup")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SignUpAsync([FromBody] SignUpCustomerCommand command)
+        public async Task<IActionResult> SignUpAsync([FromBody] CreateCustomerCommand command)
         {
             await this.Mediator.Send(command);
             return Ok();

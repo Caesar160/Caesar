@@ -3,7 +3,7 @@
     using MediatR;
     using Newtonsoft.Json;
 
-    public class SignUpCustomerCommand : IRequest<Unit>
+    public class CreateCustomerCommand : IRequest<Unit>
     {
         [JsonProperty("name")]
         public string Name

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.2.1" />
     <PackageReference Include="MediatR" Version="10.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
@@ -17,6 +16,7 @@
     <ProjectReference Include="..\Caesar.Application\Caesar.Application.csproj" />
     <ProjectReference Include="..\Caesar.Constants\Caesar.Constants.csproj" />
     <ProjectReference Include="..\Caesar.Settings\Caesar.Settings.csproj" />
+    <ProjectReference Include="..\Caesar.Stripe\Caesar.Stripe.csproj" />
   </ItemGroup>
 
 </Project>

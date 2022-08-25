@@ -1,6 +1,6 @@
 ﻿namespace Caesar.Presentation.API.Controllers
 {
-    using Caesar.Application.Aggregates.Products.Commands.BuyProduct;
+    using Application.Aggregates.Products.Commands.BuyProduct;
     using Caesar.Application.Aggregates.Products.Queries.GetProductsList;
     using Microsoft.AspNetCore.Mvc;
 

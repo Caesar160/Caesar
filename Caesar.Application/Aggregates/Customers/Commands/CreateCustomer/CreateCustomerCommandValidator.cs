@@ -2,9 +2,9 @@
 {
     using FluentValidation;
 
-    public class SignUpCustomerCommandValidator : AbstractValidator<SignUpCustomerCommand>
+    public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
     {
-        public SignUpCustomerCommandValidator()
+        public CreateCustomerCommandValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
 
