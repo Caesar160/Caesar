@@ -1,36 +1,44 @@
-﻿namespace Caesar.Application.Aggregates.Customers.Commands.SignUp
+﻿namespace Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
+
+using Caesar.Application.Mappings;
+using Caesar.Domain.Entities;
+using MediatR;
+using Newtonsoft.Json;
+
+public class CreateCustomerCommand : IRequest<long>, IMapTo<User>
+
 {
-    using MediatR;
-    using Newtonsoft.Json;
-
-    public class CreateCustomerCommand : IRequest<Unit>
+    [JsonProperty("name")]
+    public string Name
     {
-        [JsonProperty("name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        get;
+        set;
+    }
 
-        [JsonProperty("phone")]
-        public string Phone
-        {
-            get;
-            set;
-        }
+    [JsonProperty("phone")]
+    public string Phone
+    {
+        get;
+        set;
+    }
 
-        [JsonProperty("description")]
-        public string Description
-        {
-            get;
-            set;
-        }
+    [JsonProperty("description")]
+    public string Description
+    {
+        get;
+        set;
+    }
 
-        [JsonProperty("email")]
-        public string Email
-        {
-            get;
-            set;
-        }
+    [JsonProperty("email")]
+    public string Email
+    {
+        get;
+        set;
+    }
+
+    public string Password
+    {
+        get;
+        set;
     }
 }

@@ -1,30 +1,29 @@
-﻿namespace Caesar.Application.Aggregates.Customers.Commands.SignUp
+﻿namespace Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
+
+using AutoMapper;
+using Caesar.Application.Interfaces;
+using Caesar.Domain.Entities;
+using MediatR;
+
+public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, long>
 {
-    using System.Threading.Tasks;
-    using AutoMapper;
-    using Caesar.Application.Interfaces;
-    using Caesar.Application.Models;
-    //using AutoMapper;
-    using Caesar.Settings;
-    using MediatR;
-    using Microsoft.Extensions.Options;
-    using Stripe;
+    private readonly ICaesarDbContext _caesarDbContext;
+    private readonly IStripeService _stripeService;
+    private readonly IMapper _mapper;
 
-    public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, Unit>
+    public CreateCustomerCommandHandler(IStripeService stripeService, IMapper mapper, ICaesarDbContext caesarDbContext)
     {
-        private IMapper _mapper;
-        private readonly IStripeService _stripeService;
+        this._stripeService = stripeService;
+        this._mapper = mapper;
+        this._caesarDbContext = caesarDbContext;
+    }
 
-        public CreateCustomerCommandHandler(IStripeService stripeService, IMapper mapper)
-        {
-            _stripeService = stripeService;
-            _mapper = mapper;
-        }
-
-        public async Task<Unit> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
-        {
-            await _stripeService.CreateCustomer(request.Name, request.Description, request.Phone, request.Email);
-            return Unit.Value;
-        }
+    public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
+    {
+        var user = this._mapper.Map<CreateCustomerCommand, User>(request);
+        this._caesarDbContext.Users.Add(user);
+        await this._caesarDbContext.SaveChangesAsync(cancellationToken);
+        await this._stripeService.CreateCustomer(request.Name, request.Description, request.Phone, request.Email);
+        return user.Id;
     }
 }

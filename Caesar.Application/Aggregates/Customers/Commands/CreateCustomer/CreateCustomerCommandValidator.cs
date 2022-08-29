@@ -1,16 +1,15 @@
-﻿namespace Caesar.Application.Aggregates.Customers.Commands.SignUp
+﻿namespace Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
+
+using FluentValidation;
+
+public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
 {
-    using FluentValidation;
-
-    public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+    public CreateCustomerCommandValidator()
     {
-        public CreateCustomerCommandValidator()
-        {
-            RuleFor(x => x.Name).NotEmpty();
+        this.RuleFor(x => x.Name).NotEmpty();
 
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+        this.RuleFor(x => x.Email).NotEmpty().EmailAddress();
 
-            RuleFor(x => x.Phone).NotEmpty();
-        }
+        this.RuleFor(x => x.Phone).NotEmpty();
     }
 }

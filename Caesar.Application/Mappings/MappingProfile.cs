@@ -1,42 +1,44 @@
-﻿namespace Caesar.Application.Mappings
+﻿namespace Caesar.Application.Mappings;
+
+using System.Reflection;
+using Aggregates.Customers.Commands.CreateCustomer;
+using AutoMapper;
+using Domain.Entities;
+using Stripe;
+
+public class MappingProfile : Profile
 {
-    using System.Reflection;
-    using Aggregates.Customers.Commands.SignUp;
-    using AutoMapper;
-    using Stripe;
-
-    public class MappingProfile : Profile
+    public MappingProfile()
     {
-        public MappingProfile()
-        {
-            this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
-            CreateMap<CreateCustomerCommand, Customer>();
-            CreateMap<Customer, CustomerCreateOptions>();
-            CreateMap<CreateCustomerCommand, CustomerCreateOptions>();
-        }
+        this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
+        this.CreateMap<CreateCustomerCommand, Customer>();
+        this.CreateMap<Customer, CustomerCreateOptions>();
+        this.CreateMap<CreateCustomerCommand, CustomerCreateOptions>();
+        this.CreateMap<CreateCustomerCommand, User>();
+        this.CreateMap<User, CreateCustomerCommand>();
+    }
 
-        private void ApplyMappingsFromAssembly(Assembly assembly)
-        {
-            var types = assembly.GetExportedTypes()
-                .Where(t => t.GetInterfaces().Any(i =>
-                    i.IsGenericType && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>) || i.GetGenericTypeDefinition() == typeof(IMapTo<>))))
-                .ToList();
+    private void ApplyMappingsFromAssembly(Assembly assembly)
+    {
+        var types = assembly.GetExportedTypes()
+            .Where(t => t.GetInterfaces().Any(i =>
+                i.IsGenericType && (i.GetGenericTypeDefinition() == typeof(IMapFrom<>) ||
+                                    i.GetGenericTypeDefinition() == typeof(IMapTo<>))))
+            .ToList();
 
-            foreach (var type in types)
+        foreach (var type in types)
+        {
+            if (type.IsAbstract)
             {
-                if (type.IsAbstract)
-                {
-                    continue;
-                }
-
-                var instance = Activator.CreateInstance(type);
-
-                var methodInfo = type.GetMethod("Mapping")
-                                 ?? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping");
-
-                methodInfo?.Invoke(instance, new object[] { this });
+                continue;
             }
+
+            var instance = Activator.CreateInstance(type);
+
+            var methodInfo = type.GetMethod("Mapping")
+                             ?? type.GetInterface("IMapFrom`1")?.GetMethod("Mapping");
+
+            methodInfo?.Invoke(instance, new object[] {this});
         }
     }
 }
-

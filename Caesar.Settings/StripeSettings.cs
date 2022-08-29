@@ -1,23 +1,21 @@
-﻿namespace Caesar.Settings
+﻿namespace Caesar.Settings;
+public class StripeSettings
 {
-    public class StripeSettings
+    public string PublishableKey
     {
-        public string PublishableKey
-        {
-            get;
-            set;
-        }
+        get;
+        set;
+    }
 
-        public string SecretKey
-        {
-            get;
-            set;
-        }
+    public string SecretKey
+    {
+        get;
+        set;
+    }
 
-        public string BaseUrl 
-        { 
-            get;
-            set;
-        }
+    public string BaseUrl
+    {
+        get;
+        set;
     }
 }

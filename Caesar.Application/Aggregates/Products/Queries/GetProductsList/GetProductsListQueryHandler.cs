@@ -1,22 +1,21 @@
-﻿namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList
+﻿namespace Caesar.Application.Aggregates.Products.Queries.GetProductsList;
+
+using Interfaces;
+using MediatR;
+using Stripe;
+
+public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<Product>>
 {
-    using Interfaces;
-    using MediatR;
-    using Stripe;
+    private readonly IStripeService _stripeService;
 
-    public class GetProductsListQueryHandler : IRequestHandler<GetProductsListQuery, List<Product>>
+    public GetProductsListQueryHandler(IStripeService stripeService)
     {
-        private readonly IStripeService _stripeService;
+        this._stripeService = stripeService;
+    }
 
-        public GetProductsListQueryHandler(IStripeService stripeService)
-        {
-            _stripeService = stripeService;
-        }
-
-        public async Task<List<Product>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
-        {
-            var products = _stripeService.GetProductsList();
-            return await products;
-        }
+    public async Task<List<Product>> Handle(GetProductsListQuery request, CancellationToken cancellationToken)
+    {
+        var products = this._stripeService.GetProductsList();
+        return await products;
     }
 }

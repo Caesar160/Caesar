@@ -1,35 +1,55 @@
-﻿namespace Caesar.Application.Models
+﻿namespace Caesar.Application.Models;
+
+using Newtonsoft.Json;
+
+public class Customer
 {
-    using Newtonsoft.Json;
-
-    public class Customer
+    [JsonProperty("id")]
+    public long Id
     {
-        [JsonProperty("name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        get;
+        set;
+    }
 
-        [JsonProperty("phone")]
-        public string Phone
-        {
-            get;
-            set;
-        }
+    [JsonProperty("passwordHash")]
+    public string PasswordHash
+    {
+        get;
+        set;
+    }
 
-        [JsonProperty("description")]
-        public string Description
-        {
-            get;
-            set;
-        }
+    [JsonProperty("role")]
+    public string Role
+    {
+        get;
+        set;
+    }
 
-        [JsonProperty("email")]
-        public string Email
-        {
-            get;
-            set;
-        }
+    [JsonProperty("name")]
+    public string Name
+    {
+        get;
+        set;
+    }
+
+    [JsonProperty("phone")]
+    public string Phone
+    {
+        get;
+        set;
+    }
+
+    [JsonProperty("description")]
+    public string Description
+    {
+        get;
+        set;
+    }
+
+    [JsonProperty("email")]
+    public string Email
+    {
+        get;
+        set;
     }
 }

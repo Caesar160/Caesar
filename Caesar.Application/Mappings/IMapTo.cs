@@ -1,9 +1,11 @@
-﻿namespace Caesar.Application.Mappings
-{
-    using AutoMapper;
+﻿namespace Caesar.Application.Mappings;
 
-    public interface IMapTo<T>
+using AutoMapper;
+
+public interface IMapTo<T>
+{
+    public void Mapping(Profile profile)
     {
-        public void Mapping(Profile profile) => profile.CreateMap(this.GetType(), typeof(T));
+        profile.CreateMap(this.GetType(), typeof(T));
     }
 }

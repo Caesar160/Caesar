@@ -1,18 +1,17 @@
-﻿namespace Caesar.Application
-{
-    using Microsoft.Extensions.DependencyInjection;
-    using System.Reflection;
-    using MediatR;
-    using FluentValidation;
+﻿namespace Caesar.Application;
 
-    public static class DependenciesBootstrapper
+using System.Reflection;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+
+public static class DependenciesBootstrapper
+{
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        public static IServiceCollection AddApplication(this IServiceCollection services)
-        {
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
-            services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddMediatR(Assembly.GetExecutingAssembly());
-            return services;
-        }
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddMediatR(Assembly.GetExecutingAssembly());
+        return services;
     }
 }

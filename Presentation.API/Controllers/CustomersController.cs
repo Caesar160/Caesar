@@ -1,18 +1,17 @@
-﻿namespace Caesar.Presentation.API.Controllers
-{
-    using Application.Aggregates.Customers.Commands.SignUp;
-    using Microsoft.AspNetCore.Mvc;
+﻿namespace Caesar.Presentation.API.Controllers;
 
-    [Route("api/[controller]")]
-    [ApiController]
-    public class CustomersController : BaseController
+using Application.Aggregates.Customers.Commands.CreateCustomer;
+using Microsoft.AspNetCore.Mvc;
+
+[Route("api/[controller]")]
+[ApiController]
+public class CustomersController : BaseController
+{
+    [HttpPost("/signup")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> SignUpAsync([FromBody] CreateCustomerCommand command)
     {
-        [HttpPost("/signup")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> SignUpAsync([FromBody] CreateCustomerCommand command)
-        {
-            await this.Mediator.Send(command);
-            return Ok();
-        }
+        await this.Mediator.Send(command);
+        return this.Ok();
     }
 }
