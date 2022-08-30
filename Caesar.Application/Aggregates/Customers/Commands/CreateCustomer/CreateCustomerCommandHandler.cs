@@ -3,6 +3,7 @@
 using AutoMapper;
 using Caesar.Application.Interfaces;
 using Caesar.Domain.Entities;
+using Constants.Helpers;
 using MediatR;
 
 public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, long>
@@ -20,10 +21,12 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
 
     public async Task<long> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
     {
+        await this._stripeService.CreateCustomer(request.Name, request.Description, request.Phone, request.Email);
         var user = this._mapper.Map<CreateCustomerCommand, User>(request);
+        user.Password = CryptoHelper.HashPassword(request.Password);
+        user.StripeId = this._stripeService.GetCustomerByEmail(request.Email).Result.Id;
         this._caesarDbContext.Users.Add(user);
         await this._caesarDbContext.SaveChangesAsync(cancellationToken);
-        await this._stripeService.CreateCustomer(request.Name, request.Description, request.Phone, request.Email);
         return user.Id;
     }
 }

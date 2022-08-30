@@ -36,6 +36,7 @@ public class CreateCustomerCommand : IRequest<long>, IMapTo<User>
         set;
     }
 
+    [JsonProperty("password")]
     public string Password
     {
         get;

@@ -3,6 +3,8 @@
 using Application.Interfaces;
 using AutoMapper;
 using global::Stripe;
+using global::Stripe.Checkout;
+using MediatR;
 using Microsoft.Extensions.Options;
 using Settings;
 
@@ -29,6 +31,45 @@ public class StripeService : IStripeService
     public async Task CreateCustomer(string name, string description, string phone, string email)
     {
         var options = new CustomerCreateOptions {Name = name, Description = description, Phone = phone, Email = email};
-        await new CustomerService().CreateAsync(options);
+        var customerService = new CustomerService();
+        customerService.Create(options);
+    }
+
+    public async Task UpdateCustomer(string id, string name, string description)
+    {
+        var options = new CustomerUpdateOptions
+        {
+            Name = name,
+            Description = description
+        };
+        var service = new CustomerService();
+        await new CustomerService().UpdateAsync(id, options);
+    }
+
+    public async Task<Customer> GetCustomerByEmail(string email)
+    {
+        var service = new CustomerService();
+        var searchOptions = new CustomerSearchOptions { Query = $"email:'{email}'" };
+        var customer = service.SearchAsync(searchOptions);
+        return customer.Result.Data.FirstOrDefault()!;
+    }
+
+    public async Task CreatePayment(string priceId)
+    {
+        var options = new SessionCreateOptions
+        {
+            LineItems = new List<SessionLineItemOptions>
+            {
+                new SessionLineItemOptions
+                {
+                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+                    Price = $"{priceId}",
+                    Quantity = 1,
+                },
+            },
+            Mode = "payment"
+        };
+        var service = new SessionService();
+        await service.CreateAsync(options);
     }
 }

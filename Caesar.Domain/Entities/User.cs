@@ -40,6 +40,12 @@ public class User : IAuditableEntity
         set;
     }
 
+    public string StripeId
+    {
+        get;
+        set;
+    }
+
     public DateTime CreatedAt
     {
         get;

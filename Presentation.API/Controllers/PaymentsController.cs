@@ -1,6 +1,6 @@
 ﻿namespace Caesar.Presentation.API.Controllers;
 
-using Application.Aggregates.Products.Commands.BuyProduct;
+using Application.Aggregates.Products.Commands.CreatePayment;
 using Application.Aggregates.Products.Queries.GetProductsList;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +10,7 @@ public class PaymentsController : BaseController
 {
     [HttpPost("/buy")]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> CreateInvoiceAsync([FromBody] CreateInvoiceCommand command)
+    public async Task<IActionResult> CreatePaymentAsync([FromBody] CreatePaymentCommand command)
     {
         await this.Mediator.Send(command);
         return this.Ok();
