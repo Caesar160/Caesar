@@ -1,9 +1,9 @@
 ﻿namespace Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
 
 using AutoMapper;
-using Caesar.Application.Interfaces;
-using Caesar.Domain.Entities;
-using Constants.Helpers;
+using Interfaces;
+using Domain.Entities;
+using Common.Helpers;
 using MediatR;
 
 public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerCommand, long>

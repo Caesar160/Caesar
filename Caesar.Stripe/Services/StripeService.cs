@@ -4,7 +4,6 @@ using Application.Interfaces;
 using AutoMapper;
 using global::Stripe;
 using global::Stripe.Checkout;
-using MediatR;
 using Microsoft.Extensions.Options;
 using Settings;
 
@@ -62,7 +61,6 @@ public class StripeService : IStripeService
             {
                 new SessionLineItemOptions
                 {
-                    // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
                     Price = $"{priceId}",
                     Quantity = 1,
                 },

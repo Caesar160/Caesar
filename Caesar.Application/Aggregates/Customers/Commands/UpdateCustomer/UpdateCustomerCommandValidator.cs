@@ -1,6 +1,5 @@
 ﻿namespace Caesar.Application.Aggregates.Customers.Commands.UpdateCustomer;
 
-using CreateCustomer;
 using FluentValidation;
 
 public class UpdateCustomerCommandValidator : AbstractValidator<UpdateCustomerCommand>

@@ -1,9 +1,8 @@
 ﻿namespace Caesar.Application.Aggregates.Customers.Commands.UpdateCustomer;
 
 using AutoMapper;
-using Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
-using Caesar.Application.Interfaces;
-using Caesar.Domain.Entities;
+using Interfaces;
+using Domain.Entities;
 using MediatR;
 
 public class UpdateCustomerCommandHandler : IRequestHandler<UpdateCustomerCommand, long>

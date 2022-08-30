@@ -1,11 +1,8 @@
 ﻿namespace Caesar.Application.Aggregates.Customers.Commands.ChangePassword;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using System.Threading.Tasks;
-using Caesar.Application.Interfaces;
-using Constants.Helpers;
+using Interfaces;
+using Common.Helpers;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 

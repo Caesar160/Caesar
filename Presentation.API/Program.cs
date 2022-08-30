@@ -1,7 +1,7 @@
 ﻿using Caesar.Application;
 using Caesar.Application.Interfaces;
 using Caesar.Application.Mappings;
-using Caesar.Domain;
+using Caesar.Persistence;
 using Caesar.Presentation.API.Extensions;
 using Caesar.Presentation.API.Services;
 using Caesar.Stripe;

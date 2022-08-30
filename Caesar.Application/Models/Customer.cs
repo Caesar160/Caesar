@@ -1,8 +1,10 @@
 ﻿namespace Caesar.Application.Models;
 
+using Domain.Entities;
+using Mappings;
 using Newtonsoft.Json;
 
-public class Customer
+public class Customer : IMapFrom<User>
 {
     [JsonProperty("id")]
     public long Id
@@ -13,13 +15,6 @@ public class Customer
 
     [JsonProperty("passwordHash")]
     public string PasswordHash
-    {
-        get;
-        set;
-    }
-
-    [JsonProperty("role")]
-    public string Role
     {
         get;
         set;
@@ -51,5 +46,11 @@ public class Customer
     {
         get;
         set;
+    }
+    public void Mapping(AutoMapper.Profile profile)
+    {
+        profile.CreateMap<User, Customer>()
+            .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
+            .ForMember(d => d.PasswordHash, opt => opt.MapFrom(s => s.Password));
     }
 }

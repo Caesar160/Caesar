@@ -1,6 +1,6 @@
 ﻿namespace Caesar.Application.Aggregates.Products.Commands.CreatePayment;
 
-using Caesar.Application.Interfaces;
+using Interfaces;
 using MediatR;
 
 public class CreatePaymentCommandHandler : IRequestHandler<CreatePaymentCommand, Unit>

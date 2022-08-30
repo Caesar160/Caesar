@@ -2,9 +2,7 @@
 
 using System.Reflection;
 using Aggregates.Customers.Commands.CreateCustomer;
-using Aggregates.Customers.Commands.UpdateCustomer;
 using AutoMapper;
-using Domain.Entities;
 using Stripe;
 
 public class MappingProfile : Profile
@@ -15,9 +13,6 @@ public class MappingProfile : Profile
         this.CreateMap<CreateCustomerCommand, Customer>();
         this.CreateMap<Customer, CustomerCreateOptions>();
         this.CreateMap<CreateCustomerCommand, CustomerCreateOptions>();
-        this.CreateMap<CreateCustomerCommand, User>();
-        this.CreateMap<User, CreateCustomerCommand>();
-        this.CreateMap<UpdateCustomerCommand, User>();
     }
 
     private void ApplyMappingsFromAssembly(Assembly assembly)

@@ -15,6 +15,11 @@ public class User : IAuditableEntity
         get;
         set;
     }
+    public string Description
+    {
+        get;
+        set;
+    }
 
     public DateTime DateOfBirth
     {

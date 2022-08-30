@@ -1,11 +1,10 @@
-﻿namespace Caesar.Domain;
+﻿namespace Caesar.Persistence;
 
 using Application.Interfaces;
 using Common.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence;
 
 public static class DependenciesBootstrapper
 {

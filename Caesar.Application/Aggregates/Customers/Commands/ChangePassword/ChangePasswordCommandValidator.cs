@@ -2,20 +2,19 @@
 
 using System.Linq;
 using Common.Helpers;
-using Constants.Helpers;
 using FluentValidation;
 using Interfaces;
 
 public class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCommand>
 {
-    private readonly ICaesarDbContext dbContext;
+    private readonly ICaesarDbContext _dbContext;
 
-    private readonly ICurrentUserService currentUser;
+    private readonly ICurrentUserService _currentUser;
 
     public ChangePasswordCommandValidator(ICaesarDbContext dbContext, ICurrentUserService currentUser)
     {
-        this.dbContext = dbContext;
-        this.currentUser = currentUser;
+        this._dbContext = dbContext;
+        this._currentUser = currentUser;
 
         this.RuleFor(x => x.OldPassword)
             .Must(this.IsPasswordValid)
@@ -37,7 +36,7 @@ public class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCo
 
     private bool IsPasswordValid(string password)
     {
-        var user = this.dbContext.Users.FirstOrDefault(x => x.Id == this.currentUser.UserId);
+        var user = this._dbContext.Users.FirstOrDefault(x => x.Id == this._currentUser.UserId);
         return CryptoHelper.VerifyHashedPassword(user.Password, password);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace Caesar.Application.Aggregates.Customers.Queries.GetClientByEmail;
 
 using AutoMapper;
-using Constants.Helpers;
+using Common.Helpers;
 using Domain.Entities;
 using Interfaces;
 using MediatR;

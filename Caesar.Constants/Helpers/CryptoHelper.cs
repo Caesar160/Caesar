@@ -1,4 +1,4 @@
-﻿namespace Caesar.Constants.Helpers;
+﻿namespace Caesar.Common.Helpers;
 
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;

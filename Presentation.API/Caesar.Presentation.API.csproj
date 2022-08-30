@@ -13,8 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Caesar.Application\Caesar.Application.csproj" />
-    <ProjectReference Include="..\Caesar.Constants\Caesar.Common.csproj" />
     <ProjectReference Include="..\Caesar.Persistence\Caesar.Persistence.csproj" />
     <ProjectReference Include="..\Caesar.Settings\Caesar.Settings.csproj" />
     <ProjectReference Include="..\Caesar.Stripe\Caesar.Stripe.csproj" />
