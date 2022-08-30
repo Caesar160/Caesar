@@ -1,6 +1,8 @@
 ﻿namespace Caesar.Persistence;
 
+using System.Reflection;
 using Application.Interfaces;
+using Caesar.Persistence.Extensions;
 using Domain.Entities;
 using Domain.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -35,4 +37,12 @@ public class CaesarDbContext : DbContext, ICaesarDbContext
         var result = await base.SaveChangesAsync(cancellationToken);
         return result;
     }
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        builder.Seed();
+        base.OnModelCreating(builder);
+    }
+
 }

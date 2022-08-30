@@ -1,8 +1,7 @@
-﻿namespace DefyED.Application.Aggregates.Users.Queries.GetClientById;
+﻿namespace Caesar.Application.Aggregates.Customers.Queries.GetClientById;
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Caesar.Application.Aggregates.Customers.Queries.GetClientById;
 using Caesar.Application.Exceptions;
 using Caesar.Application.Infrastructure.Abstracts;
 using Caesar.Application.Interfaces;

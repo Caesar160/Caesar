@@ -4,7 +4,7 @@ using Common.Constants;
 using IdentityServer4;
 using IdentityServer4.Models;
 
-public static class Configuration
+public static class Config
 {
     public static IEnumerable<IdentityResource> IdentityResources =>
         new IdentityResource[]
@@ -37,7 +37,7 @@ public static class Configuration
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
                     IdentityServerConstants.StandardScopes.Email,
-                    "CaesarApi",
+                    "Caesar",
                     "offline_access"
                 },
 

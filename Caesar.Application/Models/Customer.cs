@@ -20,6 +20,13 @@ public class Customer : IMapFrom<User>
         set;
     }
 
+    [JsonProperty("role")]
+    public string Role
+    {
+        get;
+        set;
+    }
+
     [JsonProperty("name")]
     public string Name
     {

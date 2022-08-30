@@ -1,14 +1,28 @@
-﻿using Caesar.IdentityServer;
+﻿using Caesar.Application.Aggregates.Customers.Commands.CreateCustomer;
+using Caesar.Application.Aggregates.Customers.Queries.GetClientByEmail;
+using Caesar.Application.Aggregates.Customers.Queries.GetClientById;
+using Caesar.Application.Interfaces;
+using Caesar.Application.Mappings;
+using Caesar.Application.Models;
+using Caesar.IdentityServer;
 using Caesar.IdentityServer.Services;
+using Caesar.Persistence;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
+using MediatR.Registration;
+using MediatR;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+var serviceConfig = new MediatRServiceConfiguration();
+ServiceRegistrar.AddRequiredServices(builder.Services, serviceConfig);
+builder.Services.AddScoped<IRequestHandler<GetClientByIdQuery, Customer>, GetClientByIdQueryHandler>();
+builder.Services.AddScoped<IRequestHandler<GetClientByEmailQuery, Customer>, GetClientByEmailQueryHandler>();
+builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddSingleton<ICurrentUserService, CurrentUserService>();
 builder.Services.ConfigureIdentityServer();
-
 
 var app = builder.Build();
 
@@ -27,10 +41,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
-
-app.MapRazorPages();
-
 app.Run();
 
 internal static class ServiceCollectionExtensions
@@ -45,9 +55,9 @@ internal static class ServiceCollectionExtensions
             options.Events.RaiseSuccessEvents = true;
         });
 
-        builder.AddInMemoryIdentityResources(Configuration.IdentityResources);
-        builder.AddInMemoryApiScopes(Configuration.ApiScopes);
-        builder.AddInMemoryClients(Configuration.Clients);
+        builder.AddInMemoryIdentityResources(Config.IdentityResources);
+        builder.AddInMemoryApiScopes(Config.ApiScopes);
+        builder.AddInMemoryClients(Config.Clients);
 
         builder.AddDeveloperSigningCredential();
 

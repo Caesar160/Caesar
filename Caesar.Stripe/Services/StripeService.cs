@@ -27,11 +27,12 @@ public class StripeService : IStripeService
         return products;
     }
 
-    public async Task CreateCustomer(string name, string description, string phone, string email)
+    public async Task<Customer> CreateCustomerAsync(string name, string description, string phone, string email)
     {
         var options = new CustomerCreateOptions {Name = name, Description = description, Phone = phone, Email = email};
         var customerService = new CustomerService();
-        customerService.Create(options);
+        var created = await customerService.CreateAsync(options);
+        return created;
     }
 
     public async Task UpdateCustomer(string id, string name, string description)
@@ -45,12 +46,12 @@ public class StripeService : IStripeService
         await new CustomerService().UpdateAsync(id, options);
     }
 
-    public async Task<Customer> GetCustomerByEmail(string email)
+    public async Task<Customer> GetCustomerByEmailAsync(string email)
     {
         var service = new CustomerService();
         var searchOptions = new CustomerSearchOptions { Query = $"email:'{email}'" };
-        var customer = service.SearchAsync(searchOptions);
-        return customer.Result.Data.FirstOrDefault()!;
+        var customer = await service.SearchAsync(searchOptions);
+        return customer.Data.FirstOrDefault()!;
     }
 
     public async Task CreatePayment(string priceId)
