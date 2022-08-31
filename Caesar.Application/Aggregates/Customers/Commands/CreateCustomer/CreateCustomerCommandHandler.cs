@@ -24,7 +24,8 @@ public class CreateCustomerCommandHandler : IRequestHandler<CreateCustomerComman
         var stripeCustomer = this._stripeService.CreateCustomerAsync(request.Name, request.Description, request.Phone, request.Email).Result;
         var user = this._mapper.Map<CreateCustomerCommand, User>(request);
         user.Password = CryptoHelper.HashPassword(request.Password);
-        user.StripeId = stripeCustomer.Id;
+        user.CustomerStripeId = stripeCustomer.Id;
+        user.Role = "test";
         this._caesarDbContext.Users.Add(user);
         await this._caesarDbContext.SaveChangesAsync(cancellationToken);
         return user.Id;

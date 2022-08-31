@@ -6,6 +6,8 @@ using Caesar.Presentation.API.Extensions;
 using Caesar.Presentation.API.Services;
 using Caesar.Stripe;
 using FluentValidation.AspNetCore;
+using Microsoft.IdentityModel.Tokens;
+using Stripe;
 
 var builder = WebApplication.CreateBuilder(args);
 

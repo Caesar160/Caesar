@@ -21,6 +21,7 @@ public class UpdateCustomerCommand : IRequest<long>, IMapTo<User>
         get;
         set;
     }
+
     public void Mapping(AutoMapper.Profile profile)
     {
         profile.CreateMap<UpdateCustomerCommand, User>()

@@ -1,5 +1,6 @@
 ﻿namespace Caesar.Presentation.API.Controllers;
 
+using Application.Aggregates.Customers.Commands.ChangePassword;
 using Application.Aggregates.Customers.Commands.CreateCustomer;
 using Application.Aggregates.Customers.Commands.UpdateCustomer;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,14 @@ public class CustomersController : BaseController
     [HttpPut("/update")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateCustomerCommand command)
+    {
+        await this.Mediator.Send(command);
+        return this.Ok();
+    }
+
+    [HttpPut("/password")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> ChangePasswordAsync([FromBody] ChangePasswordCommand command)
     {
         await this.Mediator.Send(command);
         return this.Ok();

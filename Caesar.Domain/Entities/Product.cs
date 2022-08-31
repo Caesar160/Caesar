@@ -1,8 +1,7 @@
 ﻿namespace Caesar.Domain.Entities;
-
 using Interfaces;
 
-public class User : IAuditableEntity
+public class Product : IAuditableEntity
 {
     public long Id
     {
@@ -10,36 +9,19 @@ public class User : IAuditableEntity
         set;
     }
 
-    public string Name
-    {
-        get;
-        set;
-    }
-    public string? Description
+    public string PriceId
     {
         get;
         set;
     }
 
-    public DateTime? DateOfBirth
+    public bool? Paid
     {
         get;
         set;
     }
 
-    public string? Phone
-    {
-        get;
-        set;
-    }
-
-    public string Email
-    {
-        get;
-        set;
-    }
-
-    public string Password
+    public string StripeId
     {
         get;
         set;
@@ -51,7 +33,7 @@ public class User : IAuditableEntity
         set;
     }
 
-    public string? Role
+    public string? Description
     {
         get;
         set;
@@ -64,12 +46,6 @@ public class User : IAuditableEntity
     }
 
     public DateTime? LastUpdatedAt
-    {
-        get;
-        set;
-    }
-
-    public virtual IList<Product>? Products
     {
         get;
         set;

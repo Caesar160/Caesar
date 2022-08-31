@@ -19,7 +19,9 @@
                     Email = "defytest@mailinator.com",
                     Phone = "+375201112233",
                     Password = CryptoHelper.HashPassword("Qwerty123"),
-                    Name = "DefyED test user"
+                    Name = "test user",
+                    Description = "testdesc",
+                    CustomerStripeId = "cus_MLaop30pGoQG5M"
                 });
 
             #endregion

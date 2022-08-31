@@ -50,25 +50,26 @@ public class StripeService : IStripeService
     {
         var service = new CustomerService();
         var searchOptions = new CustomerSearchOptions { Query = $"email:'{email}'" };
+        var customer = service.SearchAsync(searchOptions);
+        var result = customer.Result.Data.FirstOrDefault();
+        return result;
+    }
+    public async Task<Customer> GetCustomerByIdAsync(string id)
+    {
+        var service = new CustomerService();
+        var searchOptions = new CustomerSearchOptions { Query = $"Id:'{id}'" };
         var customer = await service.SearchAsync(searchOptions);
         return customer.Data.FirstOrDefault()!;
     }
 
-    public async Task CreatePayment(string priceId)
+    public async Task<Price> SearchPriceForProductAsync(string productId)
     {
-        var options = new SessionCreateOptions
+        var options = new PriceSearchOptions
         {
-            LineItems = new List<SessionLineItemOptions>
-            {
-                new SessionLineItemOptions
-                {
-                    Price = $"{priceId}",
-                    Quantity = 1,
-                },
-            },
-            Mode = "payment"
+            Query = $"product: '{productId}'",
         };
-        var service = new SessionService();
-        await service.CreateAsync(options);
+        var service = new PriceService();
+        var result = service.Search(options).Data.First();
+        return result;
     }
 }

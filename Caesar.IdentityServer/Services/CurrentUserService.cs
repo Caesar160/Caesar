@@ -13,5 +13,5 @@ public class CurrentUserService : ICurrentUserService
     }
 
     public long UserId =>
-        long.Parse(this.httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier));
+        long.Parse(this.httpContextAccessor.HttpContext?.User?.FindFirstValue("sub"));
 }

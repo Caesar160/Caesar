@@ -58,6 +58,8 @@ public class Customer : IMapFrom<User>
     {
         profile.CreateMap<User, Customer>()
             .ForMember(d => d.Id, opt => opt.MapFrom(s => s.Id))
-            .ForMember(d => d.PasswordHash, opt => opt.MapFrom(s => s.Password));
+            .ForMember(d => d.PasswordHash, opt => opt.MapFrom(s => s.Password))
+            .ForMember(d => d.Role, opt => opt.MapFrom(s => s.Role));
     }
 }
+

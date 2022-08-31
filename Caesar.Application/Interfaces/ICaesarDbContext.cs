@@ -11,5 +11,11 @@ public interface ICaesarDbContext
         set;
     }
 
+    DbSet<Product> Products
+    {
+        get;
+        set;
+    }
+
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

@@ -19,6 +19,12 @@ public class CaesarDbContext : DbContext, ICaesarDbContext
         set;
     }
 
+    public DbSet<Product> Products
+    {
+        get;
+        set;
+    }
+
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new())
     {
         foreach (var entry in this.ChangeTracker.Entries<IAuditableEntity>())

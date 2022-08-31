@@ -8,5 +8,5 @@ public interface IStripeService
     Task<Customer> CreateCustomerAsync(string name, string description, string phone, string email);
     Task UpdateCustomer(string id, string name, string description);
     Task<Customer> GetCustomerByEmailAsync(string email);
-    Task CreatePayment(string priceId);
+    Task<Price> SearchPriceForProductAsync(string productId);
 }
